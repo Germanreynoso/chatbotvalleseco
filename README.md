@@ -25,3 +25,30 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Insertar iframe
+```
+<iframe
+      style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 932px;
+        width: 430px;
+        background-color: transparent;
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        z-index: 9999;
+        border: none;
+      "
+      allowtransparency="true"
+      src="http://localhost:4200"
+      title="Angular"
+      width="100%"
+      height="100%"
+    >
+    </iframe>
+```
+
+#### Cambiar el campo src por la dirección real del front del chatbot.

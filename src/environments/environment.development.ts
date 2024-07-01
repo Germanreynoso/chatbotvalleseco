@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  urlBase: 'http://localhost:8000/api/valleseco',
+  urlBase: 'http://localhost:8000',
 };

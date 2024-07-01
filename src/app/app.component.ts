@@ -5,6 +5,7 @@ import { RouterOutlet } from '@angular/router';
 import { ChatMessageComponent } from './components/chat-message/chat-message.component';
 import { ChatMessageService } from './services/chat-message.service';
 import { IMessage } from './interfaces/messages';
+import { error } from 'node:console';
 
 @Component({
   selector: 'app-root',
@@ -62,8 +63,8 @@ export class AppComponent implements AfterViewChecked {
     this.pushMessage(tempMessage);
     this._needToScroll = true;
     console.log(this.messages);
-    this._chatMessageService.sendMessage(data).subscribe(
-      (response) => {
+    this._chatMessageService.sendMessage(data).subscribe({
+      next: (response) => {
         if (response.ok) {
           console.log(response.data);
           this.messages = this.messages.map((message) => {
@@ -81,30 +82,24 @@ export class AppComponent implements AfterViewChecked {
           this._needToScroll = true;
         }
       },
-      (error) => {
+      error: (error) => {
         let messageResponse = '';
         if (error.status === 445) {
           messageResponse = 'Por favor intente en 5 minutos.';
+        } else if (error.status === 420) {
+          messageResponse = 'Not data available.';
         } else {
           messageResponse = 'Ups! Algo salió mal, por favor intente de nuevo.';
         }
+
         this.messages = this.messages.map((message) => {
           if (message.temp_number === temNumber) {
             message.bot_response = messageResponse;
           }
           return message;
         });
-      }
-    );
-    // const message = {
-    //   id: 2,
-    //   bot_response: null,
-    //   user_message: data.user_message,
-    //   created_at: new Date().toLocaleTimeString([], {
-    //     hour: '2-digit',
-    //     minute: '2-digit',
-    //   }),
-    // };
+      },
+    });
   }
 
   ngAfterViewChecked(): void {
@@ -127,6 +122,7 @@ export class AppComponent implements AfterViewChecked {
   pushMessage(message: any) {
     this.messages.push(message);
   }
+
   senderTyping(event: any) {
     if (event.key === 'Enter') {
       event.preventDefault();
