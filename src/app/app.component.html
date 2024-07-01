@@ -1,0 +1,86 @@
+<button class="chatbox-open" (click)="toogleChat()">
+  <i class="fa fa-comment fa-2x" aria-hidden="true"></i>
+</button>
+<section class="chatbox-popup" style="display: block">
+  <header class="chatbox-popup__header">
+    <aside style="flex: 2">
+      <i
+        class="fa fa-user-circle fa-4x chatbox-popup__avatar"
+        aria-hidden="true"
+      ></i>
+    </aside>
+    <aside style="flex: 8; text-align: center">
+      <h1>Valleseco</h1>
+      Asistente (Online)
+    </aside>
+    <aside style="flex: 2; text-align: center">
+      <h1></h1>
+    </aside>
+    <!--<aside style="flex:1">
+        <button class="chatbox-maximize"><i class="fa fa-window-maximize" aria-hidden="true"></i></button>
+      </aside>-->
+  </header>
+  <main class="chatbox-popup__main">
+    <div id="welcome-message">
+      Facilitamos la comunicación directa y sencilla <br />para que puedas
+      informarte.<br />
+      Pregúntanos lo que necesites. <br />
+      Estamos aqui para ayudarte en todo momento.
+    </div>
+    <div id="message-container" style="padding-top: 20px">
+      @for(message of messages; track $index) {
+      <!-- <app-chat-message [message]="message"></app-chat-message> -->
+      <div class="message user-message">
+        {{ message.user_message }}
+      </div>
+      <div style="font-size: 12px; text-align: end">
+        {{ message.create_at }}
+      </div>
+
+      <div class="message bot-message">
+        {{ message.bot_response }}
+      </div>
+      <div style="font-size: 12px; text-align: start">
+        {{ message.create_at }}
+      </div>
+      }
+    </div>
+  </main>
+  <form [formGroup]="askForm" method="post" (ngSubmit)="sendAskSubmit()">
+    <footer class="chatbox-popup__footer">
+      <aside style="flex: 10">
+        <textarea
+          formControlName="user_message"
+          name="message"
+          type="text"
+          maxlength="150"
+          placeholder="Escribe tu mensaje aquí..."
+          autofocus
+          rows="2"
+          (keydown)="senderTyping($event)"
+        ></textarea>
+        <small
+          *ngIf="
+            askForm.controls['user_message'].hasError('required') &&
+            askForm.controls['user_message'].touched
+          "
+          style="color: red"
+          >Campo requerido</small
+        >
+        <small
+          *ngIf="
+            askForm.controls['user_message'].hasError('minlength') &&
+            askForm.controls['user_message'].touched
+          "
+          style="color: red"
+          >Más de 2 caracteres</small
+        >
+      </aside>
+      <aside style="flex: 1; color: #888; text-align: center">
+        <button type="submit" [disabled]="askForm.invalid">
+          <i class="fa fa-paper-plane" aria-hidden="true"></i>
+        </button>
+      </aside>
+    </footer>
+  </form>
+</section>
