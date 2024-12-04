@@ -18,7 +18,7 @@ export class ChatMessageService {
     const headers: HttpHeaders = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-    const url: string = `${environment.urlBase}/api/cabildo/chatbot-web`;
+    const url: string = `${environment.urlBase}/api/valleseco/chatbot-web`;
     return this._http.post<IResponseSendMessage>(url, message, { headers });
   }
 }
