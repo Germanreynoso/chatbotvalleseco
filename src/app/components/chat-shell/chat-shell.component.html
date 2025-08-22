@@ -1,0 +1,27 @@
+<div class="chat-shell">
+  <header class="chatbox-header-netlify">
+    <img src="assets/image2.png" alt="Logo" class="avatar-img-netlify" />
+    <div class="header-texts">
+      <div class="chatbot-title">Valleseco Asistente</div>
+      <div class="chatbot-subtitle">AI Chatbot</div>
+    </div>
+    <button class="chatbox-minimize" (click)="onClose()" title="Minimizar chat" aria-label="Minimizar chat">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M7 15l5-5 5 5" stroke="#6b7280" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </header>
+  <main class="chatbox-main-netlify">
+    <div class="welcome-message-netlify">
+      ¡Hola! Soy el asistente de Valleseco. Si necesitas algo, solo pregúntame <span aria-label="smile" role="img">😊</span>
+    </div>
+    <app-chat-messages [messages]="messages"></app-chat-messages>
+    <app-typing-indicator [show]="typing"></app-typing-indicator>
+  </main>
+  <footer class="chatbox-footer-netlify">
+    <app-chat-input [form]="askForm" (send)="sendAskSubmit()" (typing)="senderTyping($event)"></app-chat-input>
+    <div class="consent-text-netlify">
+      Al conversar, consientes el monitoreo y registro de tus comunicaciones de chat. <a href="#" target="_blank">Política de privacidad.</a>
+    </div>
+  </footer>
+</div>

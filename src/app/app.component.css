@@ -1,0 +1,41 @@
+.chatbox-button {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 10000;
+  background: none;
+  border: none;
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  box-shadow: 0 4px 16px rgba(59,130,246,0.18);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: box-shadow 0.2s, transform 0.2s;
+  padding: 0;
+  outline: none;
+}
+.chatbox-button:hover {
+  box-shadow: 0 8px 24px rgba(59,130,246,0.28);
+  transform: scale(1.08);
+}
+
+/* Animación de entrada para la burbuja */
+.chatbox-animate {
+  animation: chatbox-fade-in 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+@keyframes chatbox-fade-in {
+  from { opacity: 0; transform: scale(0.7); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Animación de entrada para el chat */
+.chat-shell-animate {
+  animation: chat-shell-fade-in 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+@keyframes chat-shell-fade-in {
+  from { opacity: 0; transform: translateY(40px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}

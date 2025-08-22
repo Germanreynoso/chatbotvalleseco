@@ -1,0 +1,9 @@
+<button class="chatbox-button chatbox-animate" (click)="toogleChat()" *ngIf="!showChat" aria-label="Abrir chat">
+  <!-- SVG de burbuja de chat moderna -->
+  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="12" cy="12" r="12" fill="#3b82f6"/>
+    <path d="M7 10.5C7 9.11929 8.11929 8 9.5 8H14.5C15.8807 8 17 9.11929 17 10.5V13.5C17 14.8807 15.8807 16 14.5 16H10.9142C10.6523 16 10.4023 16.1054 10.2071 16.2929L8.70711 17.7929C8.07714 18.4229 7 17.9767 7 17.0858V10.5Z" fill="white"/>
+  </svg>
+</button>
+
+<app-chat-shell *ngIf="showChat" (close)="onChatClose()" class="chat-shell-animate"></app-chat-shell>
