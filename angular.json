@@ -38,7 +38,7 @@
             "production": {
               "budgets": [
                 {
-                  "type": "initial",
+                  "type": "all",
                   "maximumWarning": "500kb",
                   "maximumError": "1mb"
                 },
