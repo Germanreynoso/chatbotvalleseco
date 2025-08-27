@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 // @Component({
 //   selector: 'app-chat-shell',
@@ -29,7 +29,7 @@ import { getSessionId } from '../../services/session.util';
   templateUrl: './chat-shell.component.html',
   styleUrls: ['./chat-shell.component.css'],
 })
-export class ChatShellComponent {
+export class ChatShellComponent implements OnInit {
   @Output() close = new EventEmitter<void>();
 
   public messages: IMessage[] = [];
@@ -39,6 +39,7 @@ export class ChatShellComponent {
   private _chatMessageService = inject(ChatMessageService);
   private _fb = inject(FormBuilder);
   private _needToScroll = false;
+  private _storageKey = `chat_messages_${getSessionId()}`;
 
   constructor() {
     this.askForm = this._fb.group({
@@ -47,6 +48,10 @@ export class ChatShellComponent {
         [Validators.required, Validators.minLength(2), Validators.maxLength(150)],
       ],
     });
+  }
+
+  ngOnInit(): void {
+    this._loadMessagesFromStorage();
   }
 
   sendAskSubmit() {
@@ -84,6 +89,7 @@ export class ChatShellComponent {
             }
             return message;
           });
+          this._saveMessagesToStorage();
           this._needToScroll = true;
         }
         this.typing = false;
@@ -103,6 +109,7 @@ export class ChatShellComponent {
           }
           return message;
         });
+        this._saveMessagesToStorage();
         this.typing = false;
       },
     });
@@ -119,10 +126,30 @@ export class ChatShellComponent {
 
   pushMessage(message: IMessage) {
     this.messages.push(message);
+    this._saveMessagesToStorage();
   }
 
   onClose() {
     this.close.emit();
+  }
+
+  private _saveMessagesToStorage(): void {
+    try {
+      localStorage.setItem(this._storageKey, JSON.stringify(this.messages));
+    } catch (err) {
+      console.error('No se pudo guardar el historial del chat:', err);
+    }
+  }
+
+  private _loadMessagesFromStorage(): void {
+    try {
+      const stored = localStorage.getItem(this._storageKey);
+      if (stored) {
+        this.messages = JSON.parse(stored) as IMessage[];
+      }
+    } catch (err) {
+      console.error('No se pudo cargar el historial del chat:', err);
+    }
   }
 }
 
