@@ -1,4 +1,4 @@
-<div class="chat-messages" id="message-container">
+<div class="chat-messages" #messageContainer>
   <ng-container *ngFor="let message of messages; trackBy: trackByIndex">
     <div class="message user-message">{{ message.user_message }}</div>
     <div class="message bot-message">{{ message.bot_response }}</div>

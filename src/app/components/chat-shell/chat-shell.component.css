@@ -60,6 +60,8 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  flex: 1 1 auto;
+  min-height: 0;
 }
 .welcome-message-netlify {
   color: #222;
@@ -260,6 +262,12 @@ app-chat-messages, .messages-container {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+/* Garantiza que la lista de mensajes pueda contraerse y haga scroll */
+.chatbox-main-netlify app-chat-messages {
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
 .user-message, .bot-message {

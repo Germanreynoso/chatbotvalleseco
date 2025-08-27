@@ -1,0 +1,7 @@
+/* ...existing code... */
+.chat-messages-container {
+  max-height: 350px; /* Ajusta el alto según tu preferencia */
+  overflow-y: auto;
+  padding-right: 8px; /* Opcional, para que no tape el scroll */
+}
+/* ...existing code... */
