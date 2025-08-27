@@ -74,6 +74,7 @@ export class ChatShellComponent implements OnInit {
     const payload = {
       ...data,
       sessionId: getSessionId(),
+      channel: 'web',
     };
     this._chatMessageService.sendMessage(payload).subscribe({
       next: (response) => {

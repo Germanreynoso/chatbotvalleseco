@@ -52,3 +52,42 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ```
 
 #### Cambiar el campo src por la dirección real del front del chatbot.
+
+## Deploy en Netlify (SPA)
+
+1. Build de producción:
+```
+npm run build
+```
+2. En Netlify, crea un nuevo sitio desde la carpeta `dist/chatbot-mmi-angular/browser`.
+3. Añade redirección SPA creando un archivo `_redirects` en la raíz del deploy con:
+```
+/* /index.html 200
+```
+4. Configura las URLs en `src/environments/environment*.ts` (`webhookUrl`, `urlBase`).
+
+## Contrato del webhook (n8n)
+
+Request desde widget (POST `environment.webhookUrl`):
+```json
+{
+  "user_message": "texto del usuario",
+  "sessionId": "uuid-o-id",
+  "channel": "web"
+}
+```
+
+Response esperada por el widget:
+```json
+{
+  "ok": true,
+  "message": "",
+  "data": {
+    "id": 123,
+    "bot_response": "respuesta del bot"
+  }
+}
+```
+
+Notas:
+- Para Telegram, el flujo en n8n puede enviar mensajes directamente por el nodo de Telegram y no devolver JSON a este contrato. Asegúrate de bifurcar por `channel`.
