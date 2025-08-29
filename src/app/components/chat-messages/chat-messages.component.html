@@ -1,7 +1,13 @@
 <div class="chat-messages" #messageContainer>
   <ng-container *ngFor="let message of messages; trackBy: trackByIndex">
-    <div class="message user-message">{{ message.user_message }}</div>
-    <div class="message bot-message">{{ message.bot_response }}</div>
-    <div class="timestamp">{{ message.create_at }}</div>
+    <div class="message user-message">
+      <div class="text">{{ message.user_message }}</div>
+      <div class="time">{{ message.create_at }}</div>
+    </div>
+    <div class="message bot-message">
+      <div class="text">{{ message.bot_response }}</div>
+      <div class="time">{{ message.create_at }}</div>
+    </div>
   </ng-container>
+  
 </div>
